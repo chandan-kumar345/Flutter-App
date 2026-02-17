@@ -1,5 +1,6 @@
+import 'package:app/screen/login.dart';
 import 'package:flutter/material.dart';
-
+//import 'signup_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //home: LoginScreen(),
+      debugShowCheckedModeBanner: false, // ✅ removes DEBUG banner
+      home: OnboardingScreen(),
     );
   }
 }
