@@ -38,11 +38,13 @@ class DiscoverScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 /// Title
                 ShaderMask(
-                  shaderCallback: (bounds) => const LinearGradient(
-                    colors: [pinkAccent, purpleAccent],
-                  ).createShader(bounds),
+                  shaderCallback: (bounds) =>
+                      const LinearGradient(
+                        colors: [pinkAccent, purpleAccent],
+                      ).createShader(bounds),
                   child: const Text(
                     'Discover',
                     style: TextStyle(
@@ -84,7 +86,9 @@ class DiscoverScreen extends StatelessWidget {
                 Wrap(
                   spacing: 10,
                   runSpacing: 10,
-                  children: trendingTags.map((tag) => _buildHashtagChip(tag)).toList(),
+                  children: trendingTags
+                      .map((tag) => _buildHashtagChip(tag))
+                      .toList(),
                 ),
                 const SizedBox(height: 32),
 
@@ -155,7 +159,8 @@ class DiscoverScreen extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w600, fontSize: 13),
+        style: const TextStyle(
+            color: Colors.white70, fontWeight: FontWeight.w600, fontSize: 13),
       ),
     );
   }

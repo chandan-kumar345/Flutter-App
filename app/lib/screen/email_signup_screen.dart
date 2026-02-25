@@ -1,6 +1,9 @@
-import 'package:app/screen/profile_setup_screen.dart';
+import 'package:app/screen/otp_verification_screen.dart';
 import 'package:app/utils/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../services/auth_service.dart';
 
 class EmailSignUpScreen extends StatefulWidget {
   const EmailSignUpScreen({super.key});
@@ -10,6 +13,7 @@ class EmailSignUpScreen extends StatefulWidget {
 }
 
 class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
+  final AuthService _authService = AuthService();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -134,13 +138,29 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
 
                 const SizedBox(height: 32),
 
-                /// Create Account Button
-                _buildMainButton("Create Account", () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ProfileSetupScreen()),
-                  );
-                }),
+              // inside _EmailSignUpScreenState
+
+
+          // inside _buildMainButton onTap
+            _buildMainButton("Create Account", () async {
+          String email = _emailController.text.trim();
+          String password = _passwordController.text.trim();
+
+          User? user = await _authService.signUp(email, password);
+
+          if (user != null) {
+            // Navigate to OTP or Profile Setup
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => OtpVerificationScreen(email: email)),
+            );
+          } else {
+            // Show error message
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Registration failed. Please try again.")),
+            );
+          }
+        }),
 
                 const Spacer(),
                 const SizedBox(height: 20),

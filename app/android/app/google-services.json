@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "167898099358",
+    "project_id": "finderapp-4a2c2",
+    "storage_bucket": "finderapp-4a2c2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167898099358:android:d7097ff3c95d985481d58f",
+        "android_client_info": {
+          "package_name": "com.Finder.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAufLZDEvFzxmPp4TR5Immv5_9aSWxmaEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

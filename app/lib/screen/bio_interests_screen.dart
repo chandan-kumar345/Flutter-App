@@ -1,3 +1,4 @@
+import 'package:app/screen/preferences_screen.dart';
 import 'package:flutter/material.dart';
 
 class BioInterestsScreen extends StatefulWidget {
@@ -8,9 +9,7 @@ class BioInterestsScreen extends StatefulWidget {
 }
 
 class _BioInterestsScreenState extends State<BioInterestsScreen> {
-  final TextEditingController _bioController = TextEditingController(
-    text: "Coffee addict ☕ | Amateur chef who loves hiking and spontaneous travel plans. Looking for someone who makes life an adventure! ✨",
-  );
+  final TextEditingController _bioController = TextEditingController();
 
   final List<String> _selectedVibes = ["Travel", "Cooking", "Nature", "Wellness"];
 
@@ -32,242 +31,272 @@ class _BioInterestsScreenState extends State<BioInterestsScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _bioController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _bioController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     const Color pinkAccent = Color(0xFFF76B8D);
-    const Color bgColor = Color(0xFFFFF9F2);
-    const Color darkText = Color(0xFF1B0E2F);
+    const Color darkBg = Color(0xFF1B0E2F);
+    const Color cardBg = Color(0xFF2A1F47);
 
     return Scaffold(
-      backgroundColor: bgColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      backgroundColor: darkBg,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF1B0E2F),
+              Color(0xFF0E061B),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-
-              /// Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.black),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Step 3 of 4",
-                        style: TextStyle(
-                          color: Colors.black26,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              const Center(
-                child: Text(
-                  "PROFILE SETUP",
-                  style: TextStyle(
-                    color: pinkAccent,
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-
-              /// Progress Bar
-              Row(
-                children: [
-                  Expanded(child: _buildProgressSegment(true, pinkAccent)),
-                  const SizedBox(width: 8),
-                  Expanded(child: _buildProgressSegment(true, pinkAccent)),
-                  const SizedBox(width: 8),
-                  Expanded(child: _buildProgressSegment(true, pinkAccent)),
-                  const SizedBox(width: 8),
-                  Expanded(child: _buildProgressSegment(false, Colors.black12)),
-                ],
-              ),
-              const SizedBox(height: 32),
-
-              /// Title
-              RichText(
-                text: const TextSpan(
-                  style: TextStyle(
-                    fontSize: 36,
-                    height: 1.1,
-                    fontFamily: 'Georgia',
-                  ),
+              /// Fixed Header and Progress Bar
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
+                child: Column(
                   children: [
-                    TextSpan(
-                      text: "Your bio\n",
-                      style: TextStyle(
-                        color: darkText,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.05),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                          ),
+                        ),
+                        const Text(
+                          "Step 3 of 4",
+                          style: TextStyle(
+                            color: Colors.white38,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
-                    TextSpan(
-                      text: "& ",
-                      style: TextStyle(
-                        color: darkText,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const SizedBox(height: 8),
+                    const Center(
+                      // child: Text(
+                      //   "PROFILE SETUP",
+                      //   style: TextStyle(
+                      //     color: pinkAccent,
+                      //     letterSpacing: 2,
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
                     ),
-                    TextSpan(
-                      text: "interests",
-                      style: TextStyle(
-                        color: pinkAccent,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                      ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(child: _buildProgress(true, pinkAccent)),
+                        const SizedBox(width: 8),
+                        Expanded(child: _buildProgress(true, pinkAccent)),
+                        const SizedBox(width: 8),
+                        Expanded(child: _buildProgress(true, pinkAccent)),
+                        const SizedBox(width: 8),
+                        Expanded(child: _buildProgress(false, Colors.white10)),
+                      ],
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
-              const Text(
-                "Let your personality do the talking.",
-                style: TextStyle(
-                  color: Colors.black45,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 32),
 
+              /// Scrollable Content
               Expanded(
                 child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "ABOUT ME",
-                        style: TextStyle(
-                          color: Colors.black26,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                          fontSize: 12,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF2ECE4),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: TextField(
-                          controller: _bioController,
-                          maxLines: 4,
-                          maxLength: 300,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            counterText: "",
-                          ),
-                          style: const TextStyle(
-                            color: Colors.black87,
-                            fontSize: 15,
-                            height: 1.5,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            "${_bioController.text.length} / 300",
-                            style: const TextStyle(color: Colors.black26, fontSize: 12),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      const Text(
-                        "Pick your vibe (choose up to 8)",
-                        style: TextStyle(
-                          color: darkText,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: _allVibes.map((vibe) {
-                          final isSelected = _selectedVibes.contains(vibe["name"]);
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (isSelected) {
-                                  _selectedVibes.remove(vibe["name"]);
-                                } else if (_selectedVibes.length < 8) {
-                                  _selectedVibes.add(vibe["name"]);
-                                }
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                              decoration: BoxDecoration(
-                                color: isSelected ? pinkAccent : Colors.white,
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                  color: isSelected ? Colors.transparent : Colors.black12,
-                                  width: 1,
-                                ),
-                                boxShadow: isSelected
-                                    ? [
-                                        BoxShadow(
-                                          color: pinkAccent.withOpacity(0.3),
-                                          blurRadius: 8,
-                                          offset: const Offset(0, 4),
-                                        )
-                                      ]
-                                    : null,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    vibe["icon"],
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    vibe["name"],
-                                    style: TextStyle(
-                                      color: isSelected ? Colors.white : darkText,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                  physics: const BouncingScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 20),
+                        /// Title
+                        RichText(
+                          text: const TextSpan(
+                            style: TextStyle(
+                              fontSize: 36,
+                              height: 1.1,
+                              fontFamily: 'Georgia',
                             ),
-                          );
-                        }).toList(),
-                      ),
-                      const SizedBox(height: 100), // Space for button
-                    ],
+                            children: [
+                              TextSpan(
+                                text: "Your bio\n",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "& ",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "interests",
+                                style: TextStyle(
+                                  color: pinkAccent,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          "Let your personality do the talking.",
+                          style: TextStyle(
+                            color: Colors.white38,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+
+                        const Text(
+                          "ABOUT ME",
+                          style: TextStyle(
+                            color: Colors.white38,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.2,
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: cardBg.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.white.withOpacity(0.05)),
+                          ),
+                          child: TextField(
+                            controller: _bioController,
+                            maxLines: 4,
+                            maxLength: 300,
+                            decoration: const InputDecoration(
+                              hintText: "Enter your bio here...",
+                              hintStyle: TextStyle(color: Colors.white24),
+                              border: InputBorder.none,
+                              counterText: "",
+                            ),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              height: 1.5,
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              "${_bioController.text.length} / 300",
+                              style: const TextStyle(color: Colors.white38, fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        const Text(
+                          "Pick your vibe (choose up to 8)",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Wrap(
+                          spacing: 10,
+                          runSpacing: 10,
+                          children: _allVibes.map((vibe) {
+                            final isSelected = _selectedVibes.contains(vibe["name"]);
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (isSelected) {
+                                    _selectedVibes.remove(vibe["name"]);
+                                  } else if (_selectedVibes.length < 8) {
+                                    _selectedVibes.add(vibe["name"]);
+                                  }
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: isSelected ? pinkAccent : cardBg.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                    color: isSelected ? Colors.transparent : Colors.white10,
+                                    width: 1,
+                                  ),
+                                  boxShadow: isSelected
+                                      ? [
+                                          BoxShadow(
+                                            color: pinkAccent.withOpacity(0.3),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 4),
+                                          )
+                                        ]
+                                      : null,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      vibe["icon"],
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      vibe["name"],
+                                      style: TextStyle(
+                                        color: isSelected ? Colors.white : Colors.white38,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                    ),
                   ),
                 ),
               ),
 
-              /// Continue Button
+              /// Continue Button (Fixed at bottom)
               Padding(
-                padding: const EdgeInsets.only(bottom: 24.0),
+                padding: const EdgeInsets.fromLTRB(24, 10, 24, 24),
                 child: Container(
                   width: double.infinity,
                   height: 60,
@@ -282,7 +311,12 @@ class _BioInterestsScreenState extends State<BioInterestsScreen> {
                     ],
                   ),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PreferencesScreen()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: pinkAccent,
                       shape: RoundedRectangleBorder(
@@ -291,7 +325,7 @@ class _BioInterestsScreenState extends State<BioInterestsScreen> {
                       elevation: 0,
                     ),
                     child: const Text(
-                      "Continue →",
+                      "Continue",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -308,7 +342,7 @@ class _BioInterestsScreenState extends State<BioInterestsScreen> {
     );
   }
 
-  Widget _buildProgressSegment(bool filled, Color color) {
+  Widget _buildProgress(bool filled, Color color) {
     return Container(
       height: 4,
       decoration: BoxDecoration(

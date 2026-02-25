@@ -1,3 +1,4 @@
+import 'package:app/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class PreferencesScreen extends StatefulWidget {
@@ -63,15 +64,15 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                       ),
                       const SizedBox(height: 8),
                       const Center(
-                        child: Text(
-                          "PROFILE SETUP",
-                          style: TextStyle(
-                            color: pinkAccent,
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
+                        // child: Text(
+                        //   "PROFILE SETUP",
+                        //   style: TextStyle(
+                        //     color: pinkAccent,
+                        //     letterSpacing: 2,
+                        //     fontWeight: FontWeight.bold,
+                        //     fontSize: 12,
+                        //   ),
+                        // ),
                       ),
                       const SizedBox(height: 12),
                       /// Progress Bar
@@ -226,7 +227,11 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Final Action
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomeScreen()),
+                      (route) => false,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: pinkAccent,

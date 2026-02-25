@@ -1,3 +1,4 @@
+import 'package:app/screen/bio_interests_screen.dart';
 import 'package:flutter/material.dart';
 
 class AddPhotosScreen extends StatefulWidget {
@@ -11,228 +12,217 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
   @override
   Widget build(BuildContext context) {
     const Color pinkAccent = Color(0xFFF76B8D);
-    const Color bgColor = Color(0xFFFFF9F2);
-    const Color darkText = Color(0xFF1B0E2F);
+    const Color darkBg = Color(0xFF1B0E2F);
+    const Color cardBg = Color(0xFF2A1F47);
 
     return Scaffold(
-      backgroundColor: bgColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      backgroundColor: darkBg,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF1B0E2F),
+              Color(0xFF0E061B),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-              /// Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.black),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Step 2 of 4",
-                        style: TextStyle(
-                          color: Colors.black26,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              const Center(
-                child: Text(
-                  "PROFILE SETUP",
-                  style: TextStyle(
-                    color: pinkAccent,
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              /// Progress Bar
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: pinkAccent,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Container(
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: pinkAccent,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Container(
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Container(
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 32),
-              /// Title
-              RichText(
-                text: const TextSpan(
-                  style: TextStyle(
-                    fontSize: 36,
-                    height: 1.1,
-                    fontFamily: 'Georgia', // Or a similar serif font if available
-                  ),
-                  children: [
-                    TextSpan(
-                      text: "Add your\n",
-                      style: TextStyle(
-                        color: darkText,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(
-                      text: "best photos",
-                      style: TextStyle(
-                        color: pinkAccent,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                "Profiles with great photos get 3× more matches.",
-                style: TextStyle(
-                  color: Colors.black45,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 32),
-
-              /// Photo Grid
-              Expanded(
+              /// Header and Progress Bar (Fixed at top)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: _buildPhotoCard(
-                            height: 220,
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFFDB59E), Color(0xFFF76B8D)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.05),
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            hasCheck: true,
+                            child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildPhotoCard(
-                            height: 220,
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFAEC6F5), Color(0xFF7699D4)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            hasCheck: true,
+                        const Text(
+                          "Step 2 of 4",
+                          style: TextStyle(
+                            color: Colors.white38,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 8),
+                    const Center(
+                      // child: Text(
+                      //   "PROFILE SETUP",
+                      //   style: TextStyle(
+                      //     color: pinkAccent,
+                      //     letterSpacing: 2,
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
+                    ),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
-                        Expanded(
-                          child: _buildPhotoCard(
-                            height: 140,
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFA7E8C4), Color(0xFF6BCB9F)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            hasCheck: true,
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildDashedAddCard(height: 140),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildDashedAddCard(height: 140),
-                        ),
+                        Expanded(child: _buildProgress(true, pinkAccent)),
+                        const SizedBox(width: 8),
+                        Expanded(child: _buildProgress(true, pinkAccent)),
+                        const SizedBox(width: 8),
+                        Expanded(child: _buildProgress(false, Colors.white10)),
+                        const SizedBox(width: 8),
+                        Expanded(child: _buildProgress(false, Colors.white10)),
                       ],
-                    ),
-                    const SizedBox(height: 24),
-                    /// Tip Box
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFEF1F1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Row(
-                        children: [
-                          Text("💡", style: TextStyle(fontSize: 20)),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: Text(
-                              "Use a clear face photo as your main pic. Natural light works best!",
-                              style: TextStyle(
-                                color: pinkAccent,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),
               ),
 
-              /// Continue Button
+              /// Scrollable Content
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 12),
+                        /// Title
+                        RichText(
+                          text: const TextSpan(
+                            style: TextStyle(
+                              fontSize: 36,
+                              height: 1.1,
+                              fontFamily: 'Georgia',
+                            ),
+                            children: [
+                              TextSpan(
+                                text: "Add your\n",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "best photos",
+                                style: TextStyle(
+                                  color: pinkAccent,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          "Profiles with great photos get 3× more matches.",
+                          style: TextStyle(
+                            color: Colors.white38,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+
+                        /// Photo Grid
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildPhotoCard(
+                                height: 220,
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFFFDB59E), Color(0xFFF76B8D)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                hasCheck: true,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: _buildPhotoCard(
+                                height: 220,
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFFAEC6F5), Color(0xFF7699D4)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                hasCheck: true,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildPhotoCard(
+                                height: 140,
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFFA7E8C4), Color(0xFF6BCB9F)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                hasCheck: true,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: _buildDashedAddCard(height: 140, bgColor: cardBg),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: _buildDashedAddCard(height: 140, bgColor: cardBg),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+                        /// Tip Box
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: cardBg.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.white.withOpacity(0.05)),
+                          ),
+                          child: const Row(
+                            children: [
+                              Text("💡", style: TextStyle(fontSize: 20)),
+                              SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  "Use a clear face photo as your main pic. Natural light works best!",
+                                  style: TextStyle(
+                                    color: pinkAccent,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              /// Continue Button (Fixed at bottom)
               Padding(
-                padding: const EdgeInsets.only(bottom: 24.0),
+                padding: const EdgeInsets.fromLTRB(24, 10, 24, 24),
                 child: Container(
                   width: double.infinity,
                   height: 60,
@@ -247,7 +237,12 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                     ],
                   ),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const BioInterestsScreen()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: pinkAccent,
                       shape: RoundedRectangleBorder(
@@ -256,7 +251,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
                       elevation: 0,
                     ),
                     child: const Text(
-                      "Continue →",
+                      "Continue",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -269,6 +264,16 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildProgress(bool filled, Color color) {
+    return Container(
+      height: 4,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(2),
       ),
     );
   }
@@ -286,7 +291,6 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
       ),
       child: Stack(
         children: [
-          // Silhouette placeholder
           Center(
             child: Opacity(
               opacity: 0.2,
@@ -322,15 +326,15 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
     );
   }
 
-  Widget _buildDashedAddCard({required double height}) {
+  Widget _buildDashedAddCard({required double height, required Color bgColor}) {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        color: Colors.transparent,
+        color: bgColor.withOpacity(0.5),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: Colors.black12,
-          style: BorderStyle.solid, // Should ideally be dashed, using CustomPainter for true dash
+          color: Colors.white10,
+          style: BorderStyle.solid,
           width: 2,
         ),
       ),
@@ -342,7 +346,7 @@ class _AddPhotosScreenState extends State<AddPhotosScreen> {
           Text(
             "Add photo",
             style: TextStyle(
-              color: Colors.black26,
+              color: Colors.white38,
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
